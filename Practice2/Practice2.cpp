@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <list>
 #include <string>
@@ -27,6 +27,10 @@ private:
 public:
 	MyStr(std::string string):string_(string) {};
 	~MyStr() = default;
+	std::string getStr()
+	{
+		return string_;
+	};
 	friend bool operator == (const MyStr& str1,const MyStr& str2)
 	{
 		return str1.string_ == str2.string_;
@@ -85,17 +89,17 @@ int main()
 	
 	float average = std::accumulate(numbers.begin(),numbers.end(),0) / numbers.size();
 
-	/*MyStr str1("string1");
+	MyStr str1("string1");
 	MyStr str2("string2");
 	MyStr str3("string3");
 	std::string str = "string1";
 	std::list<MyStr> strings {str1,str2,str3};
-	int duplicate_string = std::count_if(strings.begin(), strings.end(), [str](std::string string)
+	int duplicate_string = std::count_if(strings.begin(), strings.end(), [str](MyStr string)
 		{
 			return string == str;
 		});
-	std::cout << duplicate_string << "\n";*/
-
-	for (int number : numbers)
-		std::cout << number << "\n";
+	int range_string = std::count_if(strings.begin(), strings.end(), [str](MyStr string)
+		{
+			return string.getStr().size() > 2 && string.getStr().size() < 10;
+		});
 }
